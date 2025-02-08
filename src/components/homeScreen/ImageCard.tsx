@@ -32,6 +32,8 @@ const st = StyleSheet.create({
 		height: 150,
 		marginRight: 10,
 		borderRadius: 12,
+		borderWidth: 0.5,
+		borderColor: colors.textMuted,
 	},
 	titleText: {
 		...defaultStyles.text,

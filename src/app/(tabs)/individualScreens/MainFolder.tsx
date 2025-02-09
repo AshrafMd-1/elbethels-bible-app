@@ -4,6 +4,7 @@ import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router'
 import FolderGeneration from '@/components/libraryScreen/FolderGeneration'
 import { screenPadding } from '@/constants/tokens'
 import { useCallback } from 'react'
+import FolderHeader from '@/components/individualScreens/FolderHeader'
 
 const MainFolder = () => {
 	const { mainFolder } = useLocalSearchParams() as { mainFolder: string }
@@ -31,6 +32,7 @@ const MainFolder = () => {
 				paddingHorizontal: screenPadding.horizontal,
 			}}
 		>
+			<FolderHeader folderName={mainFolder} />
 			<FolderGeneration mainFolder={mainFolder} />
 		</View>
 	)

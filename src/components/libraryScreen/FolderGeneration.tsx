@@ -1,7 +1,9 @@
-import { FlatList } from 'react-native'
+import { FlatList, View } from 'react-native'
 import library from '@/assets/data/library.json'
 import { useMemo } from 'react'
 import FolderItem from '@/components/libraryScreen/FolderItem'
+import SongItem from '@/components/libraryScreen/SongItem'
+import { utilsStyles } from '@/styles'
 
 type FolderGenerationProps = {
 	mainFolder?: string
@@ -30,8 +32,21 @@ const FolderGeneration = (props: FolderGenerationProps) => {
 		<FlatList
 			style={{ marginTop: 10 }}
 			data={folders}
-			renderItem={({ item }) => {
-				return <FolderItem item={item} />
+			ItemSeparatorComponent={
+				mainFolder && chapterFolder ? () => <View style={utilsStyles.itemSeparator} /> : undefined
+			}
+			scrollEnabled={!(mainFolder && chapterFolder)}
+			renderItem={({ item, index }) => {
+				if (chapterFolder && mainFolder) return <SongItem songIndex={index} songName={item} />
+				return (
+					<FolderItem
+						item={item}
+						params={{
+							mainFolder: mainFolder,
+							chapterFolder: chapterFolder,
+						}}
+					/>
+				)
 			}}
 		/>
 	)

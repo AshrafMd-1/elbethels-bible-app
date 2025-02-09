@@ -6,6 +6,10 @@ import { useRouter } from 'expo-router'
 
 interface FolderItemProps {
 	item: string
+	params: {
+		mainFolder?: string
+		chapterFolder?: string
+	}
 }
 
 const FolderItem = (props: FolderItemProps) => {
@@ -15,9 +19,12 @@ const FolderItem = (props: FolderItemProps) => {
 		<Pressable
 			onPress={() => {
 				router.push({
-					pathname: '/individualScreens/MainFolder',
+					pathname: props.params.mainFolder
+						? '/individualScreens/ChapterFolder'
+						: '/individualScreens/MainFolder',
 					params: {
-						mainFolder: props.item,
+						mainFolder: props.params.mainFolder || props.item,
+						chapterFolder: props.params.mainFolder ? props.item : undefined,
 					},
 				})
 			}}

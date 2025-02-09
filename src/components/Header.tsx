@@ -4,14 +4,15 @@ import { Image } from 'expo-image'
 import { getGreeting, getRandomGradientColors } from '@/misc/util'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
-import { colors, screenPadding } from '@/constants/tokens'
-import { usePathname } from 'expo-router'
+import { colors, fontSize, screenPadding } from '@/constants/tokens'
+import { usePathname, useRouter } from 'expo-router'
 
 import { useEffect, useState } from 'react'
 
 const Header = () => {
 	const { top } = useSafeAreaInsets()
 	const currentPath = usePathname()
+	const router = useRouter()
 
 	const isMainTabs =
 		['/setting', '/library'].some((path) => currentPath.includes(path)) || currentPath === '/'
@@ -22,13 +23,7 @@ const Header = () => {
 		setGradientColors(getRandomGradientColors())
 	}, [])
 
-	if (!isMainTabs) {
-		return (
-			<View style={{ ...st.folderContainer, paddingTop: top + 10 }}>
-				<Text style={st.folderText}>FolderHeader</Text>
-			</View>
-		)
-	}
+	if (!isMainTabs) return null
 
 	return (
 		<LinearGradient colors={gradientColors} style={{ overflow: 'hidden' }}>
@@ -53,9 +48,11 @@ const st = StyleSheet.create({
 	folderContainer: {
 		backgroundColor: colors.background,
 		paddingHorizontal: screenPadding.horizontal,
+		flexDirection: 'row',
+		gap: 20,
 	},
 	text: {
-		fontSize: 18,
+		fontSize: fontSize.base,
 		fontWeight: 'bold',
 		color: colors.text,
 		letterSpacing: 1,
@@ -67,7 +64,7 @@ const st = StyleSheet.create({
 	},
 	folderText: {
 		color: colors.text,
-		fontSize: 35,
+		fontSize: fontSize.lg,
 		fontWeight: 'bold',
 	},
 })

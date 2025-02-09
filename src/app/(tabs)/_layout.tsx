@@ -56,7 +56,6 @@ const TabsNavigation = () => {
 						),
 					}}
 				/>
-
 				<Tabs.Screen
 					name="setting/index"
 					options={{
@@ -70,6 +69,14 @@ const TabsNavigation = () => {
 					options={{
 						href: null,
 						title: 'MainFolder',
+						headerShown: false,
+					}}
+				/>
+				<Tabs.Screen
+					name="individualScreens/ChapterFolder"
+					options={{
+						href: null,
+						title: 'ChapterFolder',
 						headerShown: false,
 					}}
 				/>

@@ -26,5 +26,18 @@ const getRandomGradientColors = (): [string, string, string] => {
 	const dark = darkenColor(r, g, b, 0.7) // 30% darker
 	return [medium, dark, '#000']
 }
+const formatSecondsToMinutes = (seconds: number) => {
+	const minutes = Math.floor(seconds / 60)
+	const remainingSeconds = Math.floor(seconds % 60)
 
-export { getGreeting, getRandomGradientColors }
+	const formattedMinutes = String(minutes).padStart(2, '0')
+	const formattedSeconds = String(remainingSeconds).padStart(2, '0')
+
+	return `${formattedMinutes}:${formattedSeconds}`
+}
+
+const generateTracksListId = (trackListName: string, search?: string) => {
+	return `${trackListName}${`-${search}` || ''}`
+}
+
+export { getGreeting, getRandomGradientColors, formatSecondsToMinutes, generateTracksListId }

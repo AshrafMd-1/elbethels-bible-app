@@ -38,6 +38,7 @@ const RootNavigation = () => {
 				options={{
 					presentation: 'card',
 					animation: 'slide_from_bottom',
+					headerShown: false,
 				}}
 			/>
 		</Stack>

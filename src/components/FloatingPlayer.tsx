@@ -1,4 +1,4 @@
-import { PlayPauseButton, SkipToNextButton } from '@/components/PlayerControls'
+import { PlayPauseButton, SkipToNextButton } from '@/components/playerScreen/PlayerControls'
 import { albumImage11Uri } from '@/constants/images'
 import { defaultStyles } from '@/styles'
 import { useRouter } from 'expo-router'
@@ -6,6 +6,7 @@ import { Pressable, StyleSheet, Text, View, ViewProps } from 'react-native'
 import { useActiveTrack } from 'react-native-track-player'
 import { useLastActiveTrack } from '@/hook/useLastActiveTrack'
 import { Image } from 'expo-image'
+import { MovingText } from '@/components/MovingText'
 
 export const FloatingPlayer = ({ style }: ViewProps) => {
 	const router = useRouter()
@@ -33,7 +34,11 @@ export const FloatingPlayer = ({ style }: ViewProps) => {
 
 				<View style={styles.trackTitleContainer}>
 					<View style={{ flexDirection: 'row' }}>
-						<Text style={styles.trackTitle}>{displayedTrack.title}</Text>
+						<MovingText
+							style={styles.trackTitle}
+							text={displayedTrack.title ?? ''}
+							animationThreshold={25}
+						/>
 					</View>
 				</View>
 

@@ -1,4 +1,5 @@
 import {
+	Alert,
 	Linking,
 	ScrollView,
 	StyleSheet,
@@ -6,7 +7,6 @@ import {
 	TextInput,
 	TouchableOpacity,
 	View,
-	Alert,
 } from 'react-native'
 import { useState } from 'react'
 import { defaultStyles } from '@/styles'

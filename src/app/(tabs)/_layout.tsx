@@ -10,13 +10,13 @@ const TabsNavigation = () => {
 		<>
 			<Header />
 			<Tabs
+				backBehavior="firstRoute"
 				screenOptions={{
 					tabBarActiveTintColor: colors.primary,
 					tabBarLabelStyle: {
 						fontSize: fontSize.xs,
 						fontWeight: '500',
 					},
-					headerShown: false,
 					tabBarStyle: {
 						position: 'absolute',
 						borderTopLeftRadius: 20,
@@ -27,7 +27,7 @@ const TabsNavigation = () => {
 					},
 					tabBarBackground: () => (
 						<LinearGradient
-							colors={['rgba(80,45,45,0.8)', 'rgba(45,25,25,0.9)', 'rgb(17,9,9)']}
+							colors={['rgba(80,45,45,0.95)', 'rgba(45,25,25,0.95)', 'rgb(17,9,9)']}
 							style={{
 								...StyleSheet.absoluteFillObject,
 								overflow: 'hidden',
@@ -42,6 +42,7 @@ const TabsNavigation = () => {
 					name="(home)/index"
 					options={{
 						title: 'Home',
+						headerShown: false,
 						tabBarIcon: ({ color }) => <MaterialIcons name="home-filled" size={24} color={color} />,
 					}}
 				/>
@@ -49,16 +50,27 @@ const TabsNavigation = () => {
 					name="library/index"
 					options={{
 						title: 'Library',
+						headerShown: false,
 						tabBarIcon: ({ color }) => (
 							<MaterialIcons name="library-music" size={22} color={color} />
 						),
 					}}
 				/>
+
 				<Tabs.Screen
 					name="setting/index"
 					options={{
 						title: 'Setting',
+						headerShown: false,
 						tabBarIcon: ({ color }) => <Ionicons name="settings-sharp" size={22} color={color} />,
+					}}
+				/>
+				<Tabs.Screen
+					name="individualScreens/MainFolder"
+					options={{
+						href: null,
+						title: 'MainFolder',
+						headerShown: false,
 					}}
 				/>
 			</Tabs>

@@ -19,13 +19,10 @@ const RootNavigation = () => {
 		<Stack>
 			<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 			<Stack.Screen
-				name="player"
+				name="Player"
 				options={{
 					presentation: 'card',
-					gestureEnabled: true,
-					gestureDirection: 'vertical',
-					animationDuration: 400,
-					headerShown: false,
+					animation: 'slide_from_bottom',
 				}}
 			/>
 		</Stack>

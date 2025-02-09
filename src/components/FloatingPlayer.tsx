@@ -1,5 +1,5 @@
 import { PlayPauseButton, SkipToNextButton } from '@/components/PlayerControls'
-import { albumImage11Uri, albumImage3Uri, unknownTrackImageUri } from '@/constants/images'
+import { albumImage11Uri } from '@/constants/images'
 import { defaultStyles } from '@/styles'
 import { useRouter } from 'expo-router'
 import { Pressable, StyleSheet, Text, View, ViewProps } from 'react-native'

@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text } from 'react-native'
 import { defaultStyles } from '@/styles'
 import { screenPadding } from '@/constants/tokens'
 import { useState } from 'react'

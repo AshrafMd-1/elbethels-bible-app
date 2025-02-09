@@ -5,14 +5,13 @@ import { getGreeting, getRandomGradientColors } from '@/misc/util'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LinearGradient } from 'expo-linear-gradient'
 import { colors, fontSize, screenPadding } from '@/constants/tokens'
-import { usePathname, useRouter } from 'expo-router'
+import { usePathname } from 'expo-router'
 
 import { useEffect, useState } from 'react'
 
 const Header = () => {
 	const { top } = useSafeAreaInsets()
 	const currentPath = usePathname()
-	const router = useRouter()
 
 	const isMainTabs =
 		['/setting', '/library'].some((path) => currentPath.includes(path)) || currentPath === '/'

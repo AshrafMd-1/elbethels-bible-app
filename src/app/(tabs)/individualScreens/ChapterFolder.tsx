@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		left: 0,
 		right: 0,
-		paddingVertical: 20,
+		paddingVertical: 30,
 		paddingHorizontal: screenPadding.horizontal,
 		elevation: 4,
 		flexDirection: 'row',

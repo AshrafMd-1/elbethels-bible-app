@@ -35,9 +35,18 @@ const FolderGeneration = (props: FolderGenerationProps) => {
 			ItemSeparatorComponent={
 				mainFolder && chapterFolder ? () => <View style={utilsStyles.itemSeparator} /> : undefined
 			}
+			keyExtractor={(item) => item}
 			scrollEnabled={!(mainFolder && chapterFolder)}
 			renderItem={({ item, index }) => {
-				if (chapterFolder && mainFolder) return <SongItem songIndex={index} songName={item} />
+				if (chapterFolder && mainFolder)
+					return (
+						<SongItem
+							songIndex={index}
+							songName={item}
+							folderName={mainFolder}
+							chapterName={chapterFolder}
+						/>
+					)
 				return (
 					<FolderItem
 						item={item}

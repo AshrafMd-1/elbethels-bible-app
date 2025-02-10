@@ -3,13 +3,15 @@ import { defaultStyles } from '@/styles'
 import { colors, fontSize, screenPadding } from '@/constants/tokens'
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router'
 import FolderGeneration from '@/components/libraryScreen/FolderGeneration'
-import { getRandomGradientColors } from '@/misc/util'
+import { getRandomGradientColors, languageSpecificTitle } from '@/misc/util'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import { Image } from 'expo-image'
 import { albumImage10Uri } from '@/constants/images'
+import { useLanguage } from '@/context/LanguageContext'
+import { AntDesign } from '@expo/vector-icons'
 
 const ChapterFolder = () => {
 	const { top } = useSafeAreaInsets()
@@ -18,6 +20,8 @@ const ChapterFolder = () => {
 		mainFolder: string
 		chapterFolder: string
 	}
+	const { isTelugu } = useLanguage()
+
 	const [gradientColors, setGradientColors] = useState(getRandomGradientColors())
 	const scrollY = useRef(new Animated.Value(0)).current
 
@@ -53,7 +57,19 @@ const ChapterFolder = () => {
 				>
 					<Ionicons name="chevron-back-sharp" size={24} color={colors.text} />
 				</Pressable>
-				<Text style={styles.stickyHeaderText}>{chapterFolder}</Text>
+				<Text style={styles.stickyHeaderText}>
+					{languageSpecificTitle(isTelugu, chapterFolder)}
+				</Text>
+				<AntDesign
+					name="play"
+					size={52}
+					color={gradientColors[0]}
+					style={{
+						position: 'absolute',
+						right: screenPadding.horizontal + 5,
+						top: 50,
+					}}
+				/>
 			</Animated.View>
 
 			<Animated.ScrollView
@@ -63,7 +79,7 @@ const ChapterFolder = () => {
 					useNativeDriver: false,
 				})}
 			>
-				<LinearGradient colors={gradientColors} style={styles.gradientContainer}>
+				<LinearGradient colors={gradientColors} style={[styles.gradientContainer]}>
 					<View style={[styles.headerContainer, { marginTop: top + 10 }]}>
 						<Pressable
 							style={styles.backButton}
@@ -78,9 +94,16 @@ const ChapterFolder = () => {
 						</Pressable>
 						<Image source={{ uri: albumImage10Uri }} style={styles.albumImage} />
 					</View>
-					<View>
-						<Text style={styles.chapterText}>{chapterFolder}</Text>
-						<Text style={styles.mainFolderText}>{mainFolder}</Text>
+					<View style={styles.headerBarContainer}>
+						<View>
+							<Text style={styles.chapterText}>
+								{languageSpecificTitle(isTelugu, chapterFolder)}
+							</Text>
+							<Text style={styles.mainFolderText}>
+								{languageSpecificTitle(isTelugu, mainFolder)}
+							</Text>
+						</View>
+						<AntDesign name="play" size={62} color={gradientColors[0]} />
 					</View>
 				</LinearGradient>
 				<FolderGeneration mainFolder={mainFolder} chapterFolder={chapterFolder} />
@@ -97,6 +120,20 @@ const styles = StyleSheet.create({
 	headerContainer: {
 		flexDirection: 'row',
 	},
+	headerBarContainer: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		marginTop: 20,
+	},
+	headerBarContainerMini: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		flex: 1,
+	},
 	backButton: {
 		position: 'absolute',
 	},
@@ -109,7 +146,6 @@ const styles = StyleSheet.create({
 	},
 	chapterText: {
 		fontSize: fontSize.lg,
-		marginTop: 20,
 		color: colors.text,
 	},
 	mainFolderText: {
@@ -121,7 +157,7 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		left: 0,
 		right: 0,
-		paddingVertical: 30,
+		paddingVertical: 25,
 		paddingHorizontal: screenPadding.horizontal,
 		elevation: 4,
 		flexDirection: 'row',

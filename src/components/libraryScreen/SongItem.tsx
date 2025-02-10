@@ -1,10 +1,14 @@
 import { Pressable, StyleSheet, Text } from 'react-native'
 import { defaultStyles } from '@/styles'
-import { screenPadding } from '@/constants/tokens'
+import { colors, screenPadding } from '@/constants/tokens'
 import { useState } from 'react'
 import library from '@/assets/data/library.json'
-import TrackPlayer, { Track, useActiveTrack } from 'react-native-track-player'
+import TrackPlayer, { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import { albumImage11Uri, albumImage12Uri } from '@/constants/images'
+import { songSpecificTitle } from '@/misc/util'
+import LoaderKit from 'react-native-loader-kit'
+import { useLanguage } from '@/context/LanguageContext'
+import { Ionicons } from '@expo/vector-icons'
 
 interface SongItemProps {
 	songName: string
@@ -17,10 +21,8 @@ const SongItem = ({ songName, songIndex, folderName, chapterName }: SongItemProp
 	const [songData, setSongData] = useState<Track | null>(null)
 	const activeTrack = useActiveTrack()
 	const isActiveTrack = songData !== undefined && activeTrack && activeTrack?.id === songData?.id
-
-	function calculateDuration(sizeInBytes: number, bitrateKbps = 64) {
-		return (sizeInBytes * 8) / (bitrateKbps * 1000)
-	}
+	const { isTelugu } = useLanguage()
+	const { playing } = useIsPlaying()
 
 	const loadSongData = async () => {
 		// Fetch track data only if not already set
@@ -36,7 +38,6 @@ const SongItem = ({ songName, songIndex, folderName, chapterName }: SongItemProp
 			}
 
 			setSongData(data)
-			console.log('Loaded song data:', calculateDuration(data.size))
 			const track: Track = {
 				id: data.id,
 				url: `https://arorium.serv00.net/fetch/${data.id}`,
@@ -54,8 +55,19 @@ const SongItem = ({ songName, songIndex, folderName, chapterName }: SongItemProp
 
 	return (
 		<Pressable style={styles.container} onPress={loadSongData}>
-			<Text style={styles.index}>{isActiveTrack ? 'Playing' : songIndex}</Text>
-			<Text style={defaultStyles.text}>{songName}</Text>
+			<Text
+				style={{
+					...defaultStyles.text,
+					color: isActiveTrack ? colors.primary : colors.text,
+				}}
+			>
+				{songSpecificTitle(isTelugu, songName, chapterName)}
+			</Text>
+			{playing && isActiveTrack ? (
+				<LoaderKit name="LineScaleParty" color={colors.icon} style={{ width: 30, height: 30 }} />
+			) : (
+				<Ionicons name="play" size={30} color={colors.icon} />
+			)}
 		</Pressable>
 	)
 }
@@ -66,8 +78,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: screenPadding.horizontal,
 		flexDirection: 'row',
 		gap: 10,
-		justifyContent: 'center',
 		alignItems: 'center',
+		justifyContent: 'space-between',
 		paddingVertical: 20,
 	},
 	index: {

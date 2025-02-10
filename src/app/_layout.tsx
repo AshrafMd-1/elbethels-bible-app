@@ -5,8 +5,12 @@ import { SplashScreen, Stack } from 'expo-router'
 import { useSetupTrackPlayer } from '@/hook/useSetupTrackPlayer'
 import { useCallback } from 'react'
 import { useLogTrackPlayerState } from '@/hook/useLogTrackPlayerState'
+import TrackPlayer from 'react-native-track-player'
+import { playbackService } from '@/constants/playbackService'
+import { LanguageProvider } from '@/context/LanguageContext'
 
 SplashScreen.preventAutoHideAsync()
+TrackPlayer.registerPlaybackService(() => playbackService)
 
 const App = () => {
 	const handleTrackPlayerLoaded = useCallback(() => {
@@ -22,7 +26,9 @@ const App = () => {
 	return (
 		<SafeAreaProvider>
 			<GestureHandlerRootView style={{ flex: 1 }}>
-				<RootNavigation />
+				<LanguageProvider>
+					<RootNavigation />
+				</LanguageProvider>
 				<StatusBar style="auto" />
 			</GestureHandlerRootView>
 		</SafeAreaProvider>

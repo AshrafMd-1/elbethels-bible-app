@@ -3,6 +3,8 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { colors } from '@/constants/tokens'
 import { defaultStyles } from '@/styles'
 import { useRouter } from 'expo-router'
+import { useLanguage } from '@/context/LanguageContext'
+import { languageSpecificTitle } from '@/misc/util'
 
 interface FolderItemProps {
 	item: string
@@ -14,6 +16,7 @@ interface FolderItemProps {
 
 const FolderItem = (props: FolderItemProps) => {
 	const router = useRouter()
+	const { isTelugu } = useLanguage()
 
 	return (
 		<Pressable
@@ -32,7 +35,7 @@ const FolderItem = (props: FolderItemProps) => {
 		>
 			<MaterialIcons name="folder" size={42} color={colors.primary} />
 			<View>
-				<Text style={defaultStyles.text}>{props.item}</Text>
+				<Text style={defaultStyles.text}>{languageSpecificTitle(isTelugu, props.item)}</Text>
 			</View>
 		</Pressable>
 	)

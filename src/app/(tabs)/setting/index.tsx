@@ -3,6 +3,7 @@ import {
 	Linking,
 	ScrollView,
 	StyleSheet,
+	Switch,
 	Text,
 	TextInput,
 	TouchableOpacity,
@@ -11,24 +12,38 @@ import {
 import { useState } from 'react'
 import { defaultStyles } from '@/styles'
 import { colors, screenPadding } from '@/constants/tokens'
-
-const GITHUB_REPO = 'https://github.com/AshrafMd-1/elbethels-bible-app-/issues'
+import { useLanguage } from '@/context/LanguageContext'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 const About = () => {
+	const [title, setTitle] = useState('')
 	const [issueText, setIssueText] = useState('')
+	const { isTelugu, toggleLanguage } = useLanguage()
+	const bottom = useBottomTabBarHeight()
 
 	const handleReportIssue = async () => {
-		if (!issueText.trim()) {
-			Alert.alert('Error', 'Please enter a valid issue description.')
+		if (!title.trim() || !issueText.trim()) {
+			Alert.alert('Error', 'Please enter both title and issue description.')
 			return
 		}
 
-		const issueTitle = encodeURIComponent('Bug Report / Feedback')
-		const issueBody = encodeURIComponent(issueText)
-		const issueUrl = `${GITHUB_REPO}/new?title=${issueTitle}&body=${issueBody}`
+		try {
+			const response = await fetch('https://arorium.serv00.net/issue', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ title, issue: issueText }),
+			})
 
-		Linking.openURL(issueUrl)
-		setIssueText('')
+			if (response.ok) {
+				Alert.alert('Success', 'Issue reported successfully!')
+				setTitle('')
+				setIssueText('')
+			} else {
+				Alert.alert('Error', 'Failed to submit issue. Please try again.')
+			}
+		} catch (error) {
+			Alert.alert('Error', 'An error occurred while submitting the issue.')
+		}
 	}
 
 	return (
@@ -36,17 +51,39 @@ const About = () => {
 			style={{
 				...defaultStyles.container,
 				paddingHorizontal: screenPadding.horizontal,
+				paddingBottom: bottom,
 			}}
 		>
 			<ScrollView contentContainerStyle={st.scrollContainer}>
 				<Text style={st.heading}>Elberthal Audio Book App</Text>
 				<Text style={st.subheading}>An audiobook experience for churches</Text>
+
 				<Text style={st.sectionTitle}>App Details</Text>
 				<Text style={st.detailText}>Version: 1.0.0</Text>
 				<Text style={st.detailText}>Last Updated: Feb 08, 2025</Text>
+
+				<Text style={st.sectionTitle}>Preferences</Text>
+				<View style={st.row}>
+					<Text style={st.preferenceText}>{isTelugu ? 'తెలుగు' : 'English'}</Text>
+					<Switch
+						trackColor={{ false: colors.textMuted, true: colors.textMuted }}
+						thumbColor={isTelugu ? colors.primary : '#f4f3f4'}
+						onValueChange={toggleLanguage}
+						style={{ marginLeft: 'auto' }}
+						value={isTelugu}
+					/>
+				</View>
+
 				<Text style={st.sectionTitle}>Report an Issue</Text>
 				<TextInput
 					style={st.input}
+					placeholder="Enter your title..."
+					placeholderTextColor="#888"
+					value={title}
+					onChangeText={setTitle}
+				/>
+				<TextInput
+					style={[st.input, { minHeight: 100 }]}
 					placeholder="Describe your issue..."
 					placeholderTextColor="#888"
 					multiline
@@ -56,6 +93,7 @@ const About = () => {
 				<TouchableOpacity style={st.button} onPress={handleReportIssue}>
 					<Text style={st.buttonText}>Submit Issue</Text>
 				</TouchableOpacity>
+
 				<Text style={st.footer}>
 					Developed by{' '}
 					<Text
@@ -76,21 +114,18 @@ const st = StyleSheet.create({
 	scrollContainer: {
 		paddingBottom: 50,
 	},
-	linkText: {
-		color: '#1e90ff',
-		textDecorationLine: 'underline',
-		fontWeight: 'bold',
-	},
 	heading: {
 		fontSize: 26,
 		fontWeight: 'bold',
 		color: colors.primary,
 		marginBottom: 8,
+		textAlign: 'center',
 	},
 	subheading: {
 		fontSize: 16,
 		color: colors.text,
 		marginBottom: 20,
+		textAlign: 'center',
 	},
 	sectionTitle: {
 		fontSize: 22,
@@ -103,6 +138,15 @@ const st = StyleSheet.create({
 		color: colors.textMuted,
 		marginTop: 5,
 	},
+	preferenceText: {
+		fontSize: 16,
+		color: colors.textMuted,
+	},
+	row: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginTop: 10,
+	},
 	input: {
 		backgroundColor: '#222',
 		color: '#fff',
@@ -110,7 +154,6 @@ const st = StyleSheet.create({
 		padding: 12,
 		marginTop: 10,
 		borderRadius: 8,
-		minHeight: 80,
 		textAlignVertical: 'top',
 	},
 	button: {
@@ -129,7 +172,12 @@ const st = StyleSheet.create({
 		fontSize: 18,
 		color: '#aaa',
 		textAlign: 'center',
-		marginTop: 50,
+		marginTop: 10,
+	},
+	linkText: {
+		color: '#1e90ff',
+		textDecorationLine: 'underline',
+		fontWeight: 'bold',
 	},
 })
 

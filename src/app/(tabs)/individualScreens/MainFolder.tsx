@@ -1,5 +1,5 @@
 import { BackHandler, View } from 'react-native'
-import { defaultStyles } from '@/styles'
+import { defaultStyles, utilsStyles } from '@/styles'
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router'
 import FolderGeneration from '@/components/libraryScreen/FolderGeneration'
 import { screenPadding } from '@/constants/tokens'
@@ -33,6 +33,7 @@ const MainFolder = () => {
 			}}
 		>
 			<FolderHeader folderName={mainFolder} />
+			<View style={utilsStyles.itemSeparator} />
 			<FolderGeneration mainFolder={mainFolder} />
 		</View>
 	)

@@ -9,15 +9,15 @@ export const playbackService = async () => {
 		TrackPlayer.pause()
 	})
 
-	TrackPlayer.addEventListener(Event.RemoteStop, () => {
-		TrackPlayer.stop()
-	})
-
 	TrackPlayer.addEventListener(Event.RemoteNext, () => {
 		TrackPlayer.skipToNext()
 	})
 
 	TrackPlayer.addEventListener(Event.RemotePrevious, () => {
 		TrackPlayer.skipToPrevious()
+	})
+
+	TrackPlayer.addEventListener(Event.RemoteSeek, (data) => {
+		TrackPlayer.seekTo(data.position)
 	})
 }

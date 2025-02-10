@@ -28,7 +28,7 @@ const TabsNavigation = () => {
 					},
 					tabBarBackground: () => (
 						<LinearGradient
-							colors={['rgba(80,45,45,0.95)', 'rgba(45,25,25,0.95)', 'rgb(17,9,9)']}
+							colors={['rgb(255,255,255)', 'rgb(236,236,236)', 'rgb(255,255,255)']}
 							style={{
 								...StyleSheet.absoluteFillObject,
 								overflow: 'hidden',

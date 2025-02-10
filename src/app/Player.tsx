@@ -9,16 +9,17 @@ import { PlayerProgressBar } from '@/components/playerScreen/PlayerProgressBar'
 import { PlayerRepeatToggle } from '@/components/playerScreen/PlayerRepeatToggle'
 import { PlayerVolumeBar } from '@/components/playerScreen/PlayerVolumeBar'
 import { LinearGradient } from 'expo-linear-gradient'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useActiveTrack } from 'react-native-track-player'
 import { Image } from 'expo-image'
 import { usePlayerBackground } from '@/hook/usePlayerBackground'
+import { Router, useRouter } from 'expo-router'
 
 const Player = () => {
 	const activeTrack = useActiveTrack()
-	console.log('activeTrack', activeTrack)
 	const { imageColors } = usePlayerBackground(activeTrack?.artwork ?? unknownTrackImageUri)
+	const router = useRouter()
 
 	const { top, bottom } = useSafeAreaInsets()
 
@@ -29,7 +30,6 @@ const Player = () => {
 			</View>
 		)
 	}
-	console.log('imageColors', imageColors)
 
 	return (
 		<LinearGradient
@@ -41,7 +41,7 @@ const Player = () => {
 			}
 		>
 			<View style={styles.overlayContainer}>
-				<DismissPlayerSymbol />
+				<DismissPlayerSymbol {...router} />
 
 				<View style={{ flex: 1, marginTop: top + 70, marginBottom: bottom }}>
 					<View style={styles.artworkImageContainer}>
@@ -99,14 +99,16 @@ const Player = () => {
 	)
 }
 
-const DismissPlayerSymbol = () => {
+const DismissPlayerSymbol = (router: Router) => {
 	const { top } = useSafeAreaInsets()
 
 	return (
-		<View
+		<Pressable
+			onPress={() => router.back()}
 			style={{
 				position: 'absolute',
-				top: top + 8,
+				padding: 20,
+				top: top - 10,
 				left: 0,
 				right: 0,
 				flexDirection: 'row',
@@ -123,7 +125,7 @@ const DismissPlayerSymbol = () => {
 					opacity: 0.7,
 				}}
 			/>
-		</View>
+		</Pressable>
 	)
 }
 

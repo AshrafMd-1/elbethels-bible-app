@@ -8,17 +8,14 @@ import { formatSecondsToMinutes } from '@/misc/util'
 import { useEffect } from 'react'
 
 export const PlayerProgressBar = ({ style }: ViewProps) => {
-	const { duration, position, buffered } = useProgress(250)
-	console.log('buffered', buffered)
-	console.log('duration', duration)
-	console.log('position', position)
+	const { duration, position } = useProgress(250)
 	const isSliding = useSharedValue(false)
 	const progress = useSharedValue(0)
 	const min = useSharedValue(0)
 	const max = useSharedValue(1)
 
 	const trackElapsedTime = formatSecondsToMinutes(position)
-	const trackRemainingTime = formatSecondsToMinutes(duration - position)
+	const trackRemainingTime = formatSecondsToMinutes(duration)
 
 	useEffect(() => {
 		if (!isSliding.value) {
@@ -55,9 +52,7 @@ export const PlayerProgressBar = ({ style }: ViewProps) => {
 			<View style={styles.timeRow}>
 				<Text style={styles.timeText}>{trackElapsedTime}</Text>
 
-				<Text style={styles.timeText}>
-					{'-'} {trackRemainingTime}
-				</Text>
+				<Text style={styles.timeText}>{trackRemainingTime}</Text>
 			</View>
 		</View>
 	)

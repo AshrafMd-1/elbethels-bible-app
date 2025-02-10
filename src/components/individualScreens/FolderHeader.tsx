@@ -3,6 +3,8 @@ import { AntDesign } from '@expo/vector-icons'
 import { colors, fontSize } from '@/constants/tokens'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
+import { languageSpecificTitle } from '@/misc/util'
+import { useLanguage } from '@/context/LanguageContext'
 
 interface FolderHeaderProps {
 	folderName: string
@@ -11,13 +13,14 @@ interface FolderHeaderProps {
 const FolderHeader = (props: FolderHeaderProps) => {
 	const { top } = useSafeAreaInsets()
 	const router = useRouter()
+	const { isTelugu } = useLanguage()
 
 	return (
 		<View style={{ ...st.folderContainer, paddingTop: top + 10 }}>
 			<Pressable onPress={() => router.replace({ pathname: '/library' })}>
 				<AntDesign name="arrowleft" size={30} color="white" />
 			</Pressable>
-			<Text style={st.folderText}>{props.folderName}</Text>
+			<Text style={st.folderText}>{languageSpecificTitle(isTelugu, props.folderName)}</Text>
 		</View>
 	)
 }

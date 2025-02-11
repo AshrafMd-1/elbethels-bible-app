@@ -2,13 +2,16 @@ import { Text, View } from 'react-native'
 import { defaultStyles } from '@/styles'
 import { colors, fontSize, screenPadding } from '@/constants/tokens'
 import FolderGeneration from '@/components/libraryScreen/FolderGeneration'
+import { useFloatingBar } from '@/context/FloatingBarContext'
 
 const LibraryScreen = () => {
+	const { isFloatingBarPresent } = useFloatingBar()
 	return (
 		<View
 			style={{
 				...defaultStyles.container,
 				paddingHorizontal: screenPadding.horizontal,
+				paddingBottom: isFloatingBarPresent ? 0 : 40,
 			}}
 		>
 			<Text

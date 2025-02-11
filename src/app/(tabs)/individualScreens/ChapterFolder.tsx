@@ -48,7 +48,9 @@ const ChapterFolder = () => {
 
 	return (
 		<View style={defaultStyles.container}>
-			<Animated.View style={[styles.stickyHeader, { opacity: headerOpacity, paddingTop: top }]}>
+			<Animated.View
+				style={[styles.stickyHeader, { opacity: headerOpacity, paddingTop: top + 10 }]}
+			>
 				<LinearGradient colors={gradientColors} style={StyleSheet.absoluteFillObject} />
 				<Pressable
 					onPress={() =>
@@ -67,7 +69,7 @@ const ChapterFolder = () => {
 					style={{
 						position: 'absolute',
 						right: screenPadding.horizontal + 5,
-						top: 50,
+						top: 40,
 					}}
 				/>
 			</Animated.View>
@@ -125,7 +127,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginTop: 20,
 	},
 	headerBarContainerMini: {
 		display: 'flex',
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		left: 0,
 		right: 0,
-		paddingVertical: 25,
+		paddingVertical: 15,
 		paddingHorizontal: screenPadding.horizontal,
 		elevation: 4,
 		flexDirection: 'row',

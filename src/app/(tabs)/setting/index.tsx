@@ -14,12 +14,14 @@ import { defaultStyles } from '@/styles'
 import { colors, screenPadding } from '@/constants/tokens'
 import { useLanguage } from '@/context/LanguageContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
+import { useFloatingBar } from '@/context/FloatingBarContext'
 
 const About = () => {
 	const [title, setTitle] = useState('')
 	const [issueText, setIssueText] = useState('')
 	const { isTelugu, toggleLanguage } = useLanguage()
 	const bottom = useBottomTabBarHeight()
+	const { isFloatingBarPresent } = useFloatingBar()
 
 	const handleReportIssue = async () => {
 		if (!title.trim() || !issueText.trim()) {
@@ -51,7 +53,7 @@ const About = () => {
 			style={{
 				...defaultStyles.container,
 				paddingHorizontal: screenPadding.horizontal,
-				paddingBottom: bottom,
+				paddingBottom: bottom + (isFloatingBarPresent ? 0 : 40),
 			}}
 		>
 			<ScrollView contentContainerStyle={st.scrollContainer}>
@@ -64,7 +66,7 @@ const About = () => {
 
 				<Text style={st.sectionTitle}>Preferences</Text>
 				<View style={st.row}>
-					<Text style={st.preferenceText}>{isTelugu ? 'తెలుగు' : 'English'}</Text>
+					<Text style={st.preferenceText}>{'తెలుగు'}</Text>
 					<Switch
 						trackColor={{ false: colors.textMuted, true: colors.textMuted }}
 						thumbColor={isTelugu ? colors.primary : '#f4f3f4'}
@@ -94,8 +96,8 @@ const About = () => {
 					<Text style={st.buttonText}>Submit Issue</Text>
 				</TouchableOpacity>
 
-				<Text style={st.footer}>
-					Developed by{' '}
+				<Text style={st.sectionTitle}>
+					Developed By{' '}
 					<Text
 						style={st.linkText}
 						onPress={() =>

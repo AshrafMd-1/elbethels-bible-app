@@ -25,18 +25,8 @@ const TabsNavigation = () => {
 						borderTopWidth: 0,
 						height: 'auto',
 						paddingTop: 8,
+						backgroundColor: colors.backgroundMuted,
 					},
-					tabBarBackground: () => (
-						<LinearGradient
-							colors={['rgb(255,255,255)', 'rgb(236,236,236)', 'rgb(255,255,255)']}
-							style={{
-								...StyleSheet.absoluteFillObject,
-								overflow: 'hidden',
-								borderTopLeftRadius: 20,
-								borderTopRightRadius: 20,
-							}}
-						/>
-					),
 				}}
 			>
 				<Tabs.Screen

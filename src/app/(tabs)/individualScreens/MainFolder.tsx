@@ -33,7 +33,6 @@ const MainFolder = () => {
 			}}
 		>
 			<FolderHeader folderName={mainFolder} />
-			<View style={utilsStyles.itemSeparator} />
 			<FolderGeneration mainFolder={mainFolder} />
 		</View>
 	)

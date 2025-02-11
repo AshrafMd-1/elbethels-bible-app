@@ -15,9 +15,14 @@ import { useActiveTrack } from 'react-native-track-player'
 import { Image } from 'expo-image'
 import { usePlayerBackground } from '@/hook/usePlayerBackground'
 import { Router, useRouter } from 'expo-router'
+import { languageSpecificTitle, songSpecificTitle } from '@/misc/util'
+import { useLanguage } from '@/context/LanguageContext'
+import { AntDesign } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 
 const Player = () => {
 	const activeTrack = useActiveTrack()
+	const { isTelugu } = useLanguage()
 	const { imageColors } = usePlayerBackground(activeTrack?.artwork ?? unknownTrackImageUri)
 	const router = useRouter()
 
@@ -67,7 +72,7 @@ const Player = () => {
 									{/* Track title */}
 									<View style={styles.trackTitleContainer}>
 										<MovingText
-											text={activeTrack.title ?? ''}
+											text={songSpecificTitle(isTelugu, activeTrack.title ?? '')}
 											animationThreshold={30}
 											style={styles.trackTitleText}
 										/>
@@ -77,7 +82,7 @@ const Player = () => {
 								{/* Track artist */}
 								{activeTrack.artist && (
 									<Text numberOfLines={1} style={[styles.trackArtistText, { marginTop: 6 }]}>
-										{activeTrack.artist}
+										{languageSpecificTitle(isTelugu, activeTrack.artist)}
 									</Text>
 								)}
 							</View>
@@ -108,23 +113,14 @@ const DismissPlayerSymbol = (router: Router) => {
 			style={{
 				position: 'absolute',
 				padding: 20,
-				top: top - 10,
+				top: top,
 				left: 0,
 				right: 0,
 				flexDirection: 'row',
-				justifyContent: 'center',
+				justifyContent: 'flex-start',
 			}}
 		>
-			<View
-				accessible={false}
-				style={{
-					width: 50,
-					height: 8,
-					borderRadius: 8,
-					backgroundColor: '#fff',
-					opacity: 0.7,
-				}}
-			/>
+			<Feather name="chevrons-down" size={40} color={colors.text} />
 		</Pressable>
 	)
 }

@@ -8,6 +8,7 @@ import { useLogTrackPlayerState } from '@/hook/useLogTrackPlayerState'
 import TrackPlayer from 'react-native-track-player'
 import { playbackService } from '@/constants/playbackService'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { FloatingBarProvider } from '@/context/FloatingBarContext'
 
 SplashScreen.preventAutoHideAsync()
 TrackPlayer.registerPlaybackService(() => playbackService)
@@ -27,7 +28,9 @@ const App = () => {
 		<SafeAreaProvider>
 			<GestureHandlerRootView style={{ flex: 1 }}>
 				<LanguageProvider>
-					<RootNavigation />
+					<FloatingBarProvider>
+						<RootNavigation />
+					</FloatingBarProvider>
 				</LanguageProvider>
 				<StatusBar style="auto" />
 			</GestureHandlerRootView>

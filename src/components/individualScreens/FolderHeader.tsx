@@ -30,6 +30,9 @@ const st = StyleSheet.create({
 		backgroundColor: colors.background,
 		flexDirection: 'row',
 		gap: 20,
+		paddingVertical: 10,
+		borderBottomWidth: 0.5,
+		borderBottomColor: colors.textMuted,
 	},
 
 	folderText: {

@@ -7,12 +7,15 @@ import { useActiveTrack } from 'react-native-track-player'
 import { useLastActiveTrack } from '@/hook/useLastActiveTrack'
 import { Image } from 'expo-image'
 import { MovingText } from '@/components/MovingText'
+import { languageSpecificTitle, songSpecificTitle } from '@/misc/util'
+import { useLanguage } from '@/context/LanguageContext'
 
 export const FloatingPlayer = ({ style }: ViewProps) => {
 	const router = useRouter()
 
 	const activeTrack = useActiveTrack()
 	const lastActiveTrack = useLastActiveTrack()
+	const { isTelugu } = useLanguage()
 
 	const displayedTrack = activeTrack ?? lastActiveTrack
 
@@ -36,7 +39,11 @@ export const FloatingPlayer = ({ style }: ViewProps) => {
 					<View style={{ flexDirection: 'row' }}>
 						<MovingText
 							style={styles.trackTitle}
-							text={displayedTrack.title ?? ''}
+							text={songSpecificTitle(
+								isTelugu,
+								displayedTrack.title ?? '',
+								displayedTrack.artist ?? '',
+							)}
 							animationThreshold={25}
 						/>
 					</View>

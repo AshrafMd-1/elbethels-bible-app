@@ -15,12 +15,12 @@ const HorizontalGroupOfAlbums = () => {
 	const categorizedAlbums = [
 		{
 			id: '0',
-			title: 'The Adventure Begins',
+			title: 'ROmans 8',
 			image: albumImage2Uri,
 		},
 		{
 			id: '1',
-			title: 'Mystery of the Unknown',
+			title: 'John -1',
 			image: albumImage3Uri,
 		},
 		{

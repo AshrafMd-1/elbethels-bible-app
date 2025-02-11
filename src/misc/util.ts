@@ -14,7 +14,7 @@ const getGreeting = () => {
 	}
 }
 
-const getRandomGradientColors = (): [string, string, string, string, string] => {
+const getRandomGradientColors = (): [string, string, string] => {
 	const randomChannel = () => Math.floor(Math.random() * (180 - 80) + 80) // Between 80-180 for medium tones
 
 	const r = randomChannel()
@@ -26,12 +26,9 @@ const getRandomGradientColors = (): [string, string, string, string, string] => 
 	}
 
 	const normal = `rgb(${r}, ${g}, ${b})`
-	const dark1 = darkenColor(r, g, b, 0.7)
-	const dark2 = darkenColor(r, g, b, 0.5)
-	const dark3 = darkenColor(r, g, b, 0.3)
-	const dark4 = darkenColor(r, g, b, 0.1)
+	const dark = darkenColor(r, g, b, 0.5)
 
-	return [normal, dark1, dark2, dark3, dark4]
+	return [normal, dark, colors.background]
 }
 const formatSecondsToMinutes = (seconds: number) => {
 	const minutes = Math.floor(seconds / 60)
@@ -48,19 +45,20 @@ const languageSpecificTitle = (isTelugu: boolean, text: string) => {
 	let editedText: string
 
 	if (/^_\d{2}$/.test(firstThree)) {
-		editedText = text.slice(4).split('-')[isTelugu ? 1 : 0].trim()
+		editedText = text.slice(4).split('-')[isTelugu ? 1 : 0]
 	} else {
-		editedText = text.split('-')[isTelugu ? 1 : 0].trim()
+		editedText = text.split('-')[isTelugu ? 1 : 0]
 	}
 
 	return isTelugu ? editedText : titleCase(editedText)
 }
 
-const songSpecificTitle = (isTelugu: boolean, text: string, folderName: string) => {
+const songSpecificTitle = (isTelugu: boolean, text: string, folderName?: string) => {
 	const editedText = text.replace(/_+/g, ' ').split(' ')
 	const index = editedText[1]
+	if (!folderName) return isTelugu ? `అధ్యాయం	${index}` : `Chapter ${index}`
 	const editedFolderName = languageSpecificTitle(isTelugu, folderName)
-	return isTelugu ? `అధ్యాయం	${index}` : `Chapter ${index}`
+	return isTelugu ? `${editedFolderName} అధ్యాయం	 ${index}` : `${editedFolderName} Chapter ${index}`
 }
 
 const titleCase = (text: string) => {

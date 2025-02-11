@@ -5,10 +5,12 @@ import { useState } from 'react'
 import library from '@/assets/data/library.json'
 import TrackPlayer, { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import { albumImage11Uri, albumImage12Uri } from '@/constants/images'
-import { songSpecificTitle } from '@/misc/util'
+import { languageSpecificTitle, songSpecificTitle } from '@/misc/util'
+import { View } from 'react-native'
 import LoaderKit from 'react-native-loader-kit'
 import { useLanguage } from '@/context/LanguageContext'
 import { Ionicons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 interface SongItemProps {
 	songName: string
@@ -36,7 +38,6 @@ const SongItem = ({ songName, songIndex, folderName, chapterName }: SongItemProp
 				console.error('Track data not found!')
 				return
 			}
-
 			setSongData(data)
 			const track: Track = {
 				id: data.id,
@@ -55,19 +56,24 @@ const SongItem = ({ songName, songIndex, folderName, chapterName }: SongItemProp
 
 	return (
 		<Pressable style={styles.container} onPress={loadSongData}>
-			<Text
-				style={{
-					...defaultStyles.text,
-					color: isActiveTrack ? colors.primary : colors.text,
-				}}
-			>
-				{songSpecificTitle(isTelugu, songName, chapterName)}
-			</Text>
-			{playing && isActiveTrack ? (
-				<LoaderKit name="LineScaleParty" color={colors.icon} style={{ width: 30, height: 30 }} />
-			) : (
-				<Ionicons name="play" size={30} color={colors.icon} />
-			)}
+			<View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
+				<MaterialCommunityIcons name="file-music" size={42} color={colors.primary} />
+				<Text
+					style={{
+						...defaultStyles.text,
+						color: isActiveTrack ? colors.primary : colors.text,
+					}}
+				>
+					{songSpecificTitle(isTelugu, songName)}
+				</Text>
+			</View>
+
+			{/*{playing && isActiveTrack ? (*/}
+			{/*	<LoaderKit name="LineScaleParty" color={colors.icon} style={{ width: 30, height: 30 }} />*/}
+			{/*) : (*/}
+			{/*	<Ionicons name="play" size={30} color={colors.icon} />*/}
+			{/*)}*/}
+			{/*<Text style={defaultStyles.text}>{songData?.data}</Text>*/}
 		</Pressable>
 	)
 }
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
 		gap: 10,
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		paddingVertical: 20,
+		paddingVertical: 15,
 	},
 	index: {
 		...defaultStyles.text,

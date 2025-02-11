@@ -4,9 +4,11 @@ import ContinueFromLastAlbum from '@/components/homeScreen/ContinueFromLastAlbum
 import { screenPadding } from '@/constants/tokens'
 import JumpToAlbum from '@/components/homeScreen/JumpToAlbum'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
+import { useFloatingBar } from '@/context/FloatingBarContext'
 
 const HomeScreen = () => {
 	const bottom = useBottomTabBarHeight()
+	const { isFloatingBarPresent } = useFloatingBar()
 	return (
 		<ScrollView
 			style={[
@@ -16,9 +18,8 @@ const HomeScreen = () => {
 				},
 			]}
 		>
-			<View style={{ paddingBottom: bottom + 50 }}>
+			<View style={{ paddingBottom: bottom + (isFloatingBarPresent ? 0 : 40) }}>
 				<ContinueFromLastAlbum />
-				<JumpToAlbum />
 				<JumpToAlbum />
 				<JumpToAlbum />
 				<JumpToAlbum />

@@ -12,7 +12,7 @@ const JumpToAlbum = () => {
 					fontWeight: 'bold',
 				}}
 			>
-				Jump To Album
+				Gods Love
 			</Text>
 			<HorizontalGroupOfAlbums />
 		</View>

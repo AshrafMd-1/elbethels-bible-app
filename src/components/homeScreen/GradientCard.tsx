@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: colors.primary,
 		letterSpacing: 1,
-		marginTop: 5,
 	},
 	tagsContainer: {
 		flexDirection: 'row',

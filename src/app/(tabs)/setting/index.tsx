@@ -43,7 +43,7 @@ const About = () => {
 			} else {
 				Alert.alert('Error', 'Failed to submit issue. Please try again.')
 			}
-		} catch (error) {
+		} catch {
 			Alert.alert('Error', 'An error occurred while submitting the issue.')
 		}
 	}
@@ -53,7 +53,7 @@ const About = () => {
 			style={{
 				...defaultStyles.container,
 				paddingHorizontal: screenPadding.horizontal,
-				paddingBottom: bottom + (isFloatingBarPresent ? 0 : 40),
+				paddingBottom: isFloatingBarPresent ? bottom + 10 : bottom,
 			}}
 		>
 			<ScrollView contentContainerStyle={st.scrollContainer}>

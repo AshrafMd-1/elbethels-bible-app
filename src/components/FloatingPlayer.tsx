@@ -2,12 +2,12 @@ import { PlayPauseButton, SkipToNextButton } from '@/components/playerScreen/Pla
 import { albumImage11Uri } from '@/constants/images'
 import { defaultStyles } from '@/styles'
 import { useRouter } from 'expo-router'
-import { Pressable, StyleSheet, Text, View, ViewProps } from 'react-native'
+import { Pressable, StyleSheet, View, ViewProps } from 'react-native'
 import { useActiveTrack } from 'react-native-track-player'
 import { useLastActiveTrack } from '@/hook/useLastActiveTrack'
 import { Image } from 'expo-image'
 import { MovingText } from '@/components/MovingText'
-import { languageSpecificTitle, songSpecificTitle } from '@/misc/util'
+import { songSpecificTitle } from '@/misc/util'
 import { useLanguage } from '@/context/LanguageContext'
 
 export const FloatingPlayer = ({ style }: ViewProps) => {

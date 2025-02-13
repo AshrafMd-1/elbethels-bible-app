@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import Animated, {
+	cancelAnimation,
 	Easing,
 	StyleProps,
-	cancelAnimation,
 	useAnimatedStyle,
 	useSharedValue,
 	withDelay,

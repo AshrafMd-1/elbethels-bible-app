@@ -1,5 +1,5 @@
 import { BackHandler, View } from 'react-native'
-import { defaultStyles, utilsStyles } from '@/styles'
+import { defaultStyles } from '@/styles'
 import { useFocusEffect, useLocalSearchParams, useRouter } from 'expo-router'
 import FolderGeneration from '@/components/libraryScreen/FolderGeneration'
 import { screenPadding } from '@/constants/tokens'

@@ -1,8 +1,6 @@
 import { colors, fontSize } from '@/constants/tokens'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Tabs } from 'expo-router'
-import { StyleSheet } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
 import Header from '@/components/Header'
 import { FloatingPlayer } from '@/components/FloatingPlayer'
 

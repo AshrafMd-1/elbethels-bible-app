@@ -7,11 +7,10 @@ import { getRandomGradientColors, languageSpecificTitle } from '@/misc/util'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Ionicons } from '@expo/vector-icons'
+import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { Image } from 'expo-image'
 import { albumImage10Uri } from '@/constants/images'
 import { useLanguage } from '@/context/LanguageContext'
-import { AntDesign } from '@expo/vector-icons'
 
 const ChapterFolder = () => {
 	const { top } = useSafeAreaInsets()

@@ -3,15 +3,17 @@ import { defaultStyles } from '@/styles'
 import { colors, fontSize, screenPadding } from '@/constants/tokens'
 import FolderGeneration from '@/components/libraryScreen/FolderGeneration'
 import { useFloatingBar } from '@/context/FloatingBarContext'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 const LibraryScreen = () => {
 	const { isFloatingBarPresent } = useFloatingBar()
+	const bottom = useBottomTabBarHeight()
 	return (
 		<View
 			style={{
 				...defaultStyles.container,
 				paddingHorizontal: screenPadding.horizontal,
-				paddingBottom: isFloatingBarPresent ? 0 : 40,
+				paddingBottom: isFloatingBarPresent ? bottom + 40 : bottom,
 			}}
 		>
 			<Text

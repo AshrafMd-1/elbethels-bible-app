@@ -1,65 +1,68 @@
 import { FlatList, View } from 'react-native'
 import library from '@/assets/data/library.json'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import FolderItem from '@/components/libraryScreen/FolderItem'
 import SongItem from '@/components/libraryScreen/SongItem'
 import { utilsStyles } from '@/styles'
-import { useActiveTrack } from 'react-native-track-player'
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { useFloatingBar } from '@/context/FloatingBarContext'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 
 type FolderGenerationProps = {
 	mainFolder?: string
 	chapterFolder?: string
 }
 
-const FolderGeneration = (props: FolderGenerationProps) => {
-	const { mainFolder, chapterFolder } = props
-	const bottom = useBottomTabBarHeight()
+const FolderGeneration = ({ mainFolder, chapterFolder }: FolderGenerationProps) => {
 	const { isFloatingBarPresent } = useFloatingBar()
+	const [listOfFolders, setListOfFolders] = useState<string[]>([])
+	const bottom = useBottomTabBarHeight()
 
-	const folders = useMemo(() => {
-		if (!library) return []
+	useEffect(() => {
+		if (!library) {
+			setListOfFolders([])
+			return
+		}
 
 		if (mainFolder) {
 			const mainFolderData = (library as Record<string, any>)[mainFolder]?.children
 			if (chapterFolder) {
 				const chapterFolderData = mainFolderData?.[chapterFolder]?.children
-				return chapterFolderData ? Object.keys(chapterFolderData) : []
+				setListOfFolders(chapterFolderData ? Object.keys(chapterFolderData) : [])
+			} else {
+				setListOfFolders(mainFolderData ? Object.keys(mainFolderData) : [])
 			}
-			return mainFolderData ? Object.keys(mainFolderData) : []
+		} else {
+			setListOfFolders(Object.keys(library))
 		}
-
-		return Object.keys(library)
 	}, [mainFolder, chapterFolder])
 
 	return (
 		<FlatList
-			data={folders}
+			data={listOfFolders}
 			ItemSeparatorComponent={
 				mainFolder && chapterFolder ? () => <View style={utilsStyles.itemSeparator} /> : undefined
 			}
-			style={[
-				mainFolder &&
-					chapterFolder && {
-						marginTop: 10,
-					},
-				{
-					marginBottom: bottom + (isFloatingBarPresent ? 0 : 60),
-				},
-			]}
+			style={[mainFolder && chapterFolder && { marginTop: 10 }]}
 			keyExtractor={(item) => item}
+			ListFooterComponent={
+				<View style={{ paddingBottom: isFloatingBarPresent ? bottom + 60 : bottom }} />
+			}
 			scrollEnabled={!(mainFolder && chapterFolder)}
-			renderItem={({ item, index }) => {
-				if (chapterFolder && mainFolder)
+			renderItem={({ item }) => {
+				if (chapterFolder && mainFolder) {
 					return (
 						<SongItem
-							songIndex={index}
 							songName={item}
+							songData={
+								(library as Record<string, any>)[mainFolder]?.children?.[chapterFolder]?.children?.[
+									item
+								]
+							}
 							folderName={mainFolder}
 							chapterName={chapterFolder}
 						/>
 					)
+				}
 				return (
 					<FolderItem
 						item={item}

@@ -4,7 +4,7 @@ import { unknownTrackImageUri } from '@/constants/images'
 import { colors, fontSize, screenPadding } from '@/constants/tokens'
 import { PlayerControls } from '@/components/playerScreen/PlayerControls'
 import { defaultStyles, utilsStyles } from '@/styles'
-import { FontAwesome } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 import { PlayerProgressBar } from '@/components/playerScreen/PlayerProgressBar'
 import { PlayerRepeatToggle } from '@/components/playerScreen/PlayerRepeatToggle'
 import { PlayerVolumeBar } from '@/components/playerScreen/PlayerVolumeBar'
@@ -17,8 +17,6 @@ import { usePlayerBackground } from '@/hook/usePlayerBackground'
 import { Router, useRouter } from 'expo-router'
 import { languageSpecificTitle, songSpecificTitle } from '@/misc/util'
 import { useLanguage } from '@/context/LanguageContext'
-import { AntDesign } from '@expo/vector-icons'
-import { Feather } from '@expo/vector-icons'
 
 const Player = () => {
 	const activeTrack = useActiveTrack()

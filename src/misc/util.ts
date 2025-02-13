@@ -1,6 +1,3 @@
-import { is } from '@babel/types'
-import { colors } from '@/constants/tokens'
-
 const getGreeting = () => {
 	const hour = new Date().getHours()
 	if (hour >= 5 && hour < 12) {
@@ -27,8 +24,9 @@ const getRandomGradientColors = (): [string, string, string] => {
 
 	const normal = `rgb(${r}, ${g}, ${b})`
 	const dark = darkenColor(r, g, b, 0.5)
+	const darker = darkenColor(r, g, b, 0.1)
 
-	return [normal, dark, colors.background]
+	return [normal, dark, darker]
 }
 const formatSecondsToMinutes = (seconds: number) => {
 	const minutes = Math.floor(seconds / 60)
@@ -69,6 +67,11 @@ const titleCase = (text: string) => {
 		.join(' ')
 }
 
+const calculateBytesToDuration = (bytes: number, bitRate: number) => {
+	const duration = (bytes * 8) / (bitRate * 1000) - 2
+	return formatSecondsToMinutes(duration)
+}
+
 export {
 	getGreeting,
 	getRandomGradientColors,
@@ -76,4 +79,5 @@ export {
 	languageSpecificTitle,
 	titleCase,
 	songSpecificTitle,
+	calculateBytesToDuration,
 }

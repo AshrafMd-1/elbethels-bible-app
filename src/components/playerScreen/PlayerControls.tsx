@@ -1,6 +1,6 @@
 import { colors } from '@/constants/tokens'
 import { FontAwesome6 } from '@expo/vector-icons'
-import { Pressable, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { Pressable, StyleSheet, View, ViewStyle } from 'react-native'
 import TrackPlayer, { useIsPlaying } from 'react-native-track-player'
 
 type PlayerControlsProps = {
@@ -30,19 +30,24 @@ export const PlayPauseButton = ({ style, iconSize = 48 }: PlayerButtonProps) => 
 	const { playing } = useIsPlaying()
 
 	return (
-		<View style={[{ height: iconSize }, style]}>
-			<Pressable
-				onPress={async () => {
-					if (playing) {
-						await TrackPlayer.pause()
-					} else {
-						await TrackPlayer.play()
-					}
-				}}
-			>
-				<FontAwesome6 name={playing ? 'pause' : 'play'} size={iconSize} color={colors.text} />
-			</Pressable>
-		</View>
+		<Pressable
+			style={[
+				{ height: iconSize },
+				style,
+				{
+					paddingHorizontal: iconSize / 4,
+				},
+			]}
+			onPress={async () => {
+				if (playing) {
+					await TrackPlayer.pause()
+				} else {
+					await TrackPlayer.play()
+				}
+			}}
+		>
+			<FontAwesome6 name={playing ? 'pause' : 'play'} size={iconSize} color={colors.text} />
+		</Pressable>
 	)
 }
 

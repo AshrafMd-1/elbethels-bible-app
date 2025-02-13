@@ -18,7 +18,7 @@ const HomeScreen = () => {
 				},
 			]}
 		>
-			<View style={{ paddingBottom: bottom + (isFloatingBarPresent ? 0 : 40) }}>
+			<View style={{ paddingBottom: isFloatingBarPresent ? bottom + 40 : bottom }}>
 				<ContinueFromLastAlbum />
 				<JumpToAlbum />
 				<JumpToAlbum />

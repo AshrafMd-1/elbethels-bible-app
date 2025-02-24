@@ -7,18 +7,17 @@ import { calculateBytesToDuration, songSpecificTitle } from '@/misc/util'
 import LoaderKit from 'react-native-loader-kit'
 import { useLanguage } from '@/context/LanguageContext'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { useFloatingBar } from '@/context/FloatingBarContext'
 
 interface SongItemProps {
 	songName: string
 	songData: any
 	folderName: string
 	chapterName: string
+	onPlay: (track: Track) => void
 }
 
-const SongItem = ({ songName, songData, folderName, chapterName }: SongItemProps) => {
+const SongItem = ({ songName, songData, folderName, chapterName, onPlay }: SongItemProps) => {
 	const activeTrack = useActiveTrack()
-	const { setIsFloatingBarPresent } = useFloatingBar()
 	const isActiveTrack = activeTrack?.id === songData?.id
 	const { isTelugu } = useLanguage()
 	const { playing } = useIsPlaying()
@@ -36,9 +35,7 @@ const SongItem = ({ songName, songData, folderName, chapterName }: SongItemProps
 			album: folderName,
 			artwork: albumImage12Uri,
 		}
-		await TrackPlayer.load(track)
-		await TrackPlayer.play()
-		setIsFloatingBarPresent(true)
+		onPlay(track)
 	}
 
 	return (

@@ -38,7 +38,7 @@ const st = StyleSheet.create({
 	container: {
 		justifyContent: 'flex-start',
 		alignItems: 'center',
-		paddingBottom: 30,
+		paddingBottom: 10,
 		gap: 20,
 		display: 'flex',
 		paddingHorizontal: screenPadding.horizontal,

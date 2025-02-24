@@ -1,3 +1,5 @@
+import { colors } from '@/constants/tokens'
+
 const getGreeting = () => {
 	const hour = new Date().getHours()
 	if (hour >= 5 && hour < 12) {
@@ -23,7 +25,7 @@ const getRandomGradientColors = (): [string, string, string] => {
 	}
 
 	const normal = `rgb(${r}, ${g}, ${b})`
-	const dark = darkenColor(r, g, b, 0.5)
+	const dark = darkenColor(r, g, b, 0.3)
 	const darker = darkenColor(r, g, b, 0.1)
 
 	return [normal, dark, darker]

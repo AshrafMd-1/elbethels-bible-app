@@ -38,6 +38,6 @@ yarn-error.*
 #IDE
 .idea/
 .vscode/
-/android
-/ios
+android/
+ios/
 

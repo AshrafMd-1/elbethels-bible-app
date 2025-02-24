@@ -1,5 +1,3 @@
-import { colors } from '@/constants/tokens'
-
 const getGreeting = () => {
 	const hour = new Date().getHours()
 	if (hour >= 5 && hour < 12) {

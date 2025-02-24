@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { defaultStyles } from '@/styles'
 import { colors, screenPadding } from '@/constants/tokens'
-import TrackPlayer, { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player'
+import { Track, useActiveTrack, useIsPlaying } from 'react-native-track-player'
 import { albumImage12Uri } from '@/constants/images'
 import { calculateBytesToDuration, songSpecificTitle } from '@/misc/util'
 import LoaderKit from 'react-native-loader-kit'

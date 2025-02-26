@@ -8,6 +8,7 @@ import { useFloatingBar } from '@/context/FloatingBarContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import TrackPlayer, { AddTrack, Track } from 'react-native-track-player'
 import { albumImage12Uri } from '@/constants/images'
+import { useLastPlayedStore } from '@/store/useLastPlayedStore'
 
 type FolderGenerationProps = {
 	mainFolder?: string
@@ -20,6 +21,17 @@ const FolderGeneration = ({ mainFolder, chapterFolder }: FolderGenerationProps) 
 	const bottom = useBottomTabBarHeight()
 	const [songChapter, setSongChapter] = useState<string>('')
 	const queueOffset = useRef(0)
+	const { updateLastPlayed } = useLastPlayedStore()
+
+	const handleNewSong = async (currentSong: Track, beforeKeys: string[], afterKeys: string[]) => {
+		await updateLastPlayed({
+			currentSong,
+			beforeTrackKeys: beforeKeys,
+			afterTrackKeys: afterKeys,
+			folderName: mainFolder || 'Some Folder',
+			chapterName: chapterFolder || 'Some Chapter',
+		})
+	}
 
 	const playSong = async (selectedTrack: Track) => {
 		const trackIndex = listOfFolders.findIndex((item) => item === selectedTrack.title)
@@ -62,6 +74,7 @@ const FolderGeneration = ({ mainFolder, chapterFolder }: FolderGenerationProps) 
 			const beforeTrackKeys = listOfFolders.slice(0, trackIndex)
 			const afterTrackKeys = listOfFolders.slice(trackIndex + 1)
 
+			await handleNewSong(selectedTrack, beforeTrackKeys, afterTrackKeys)
 			const beforeTracks = beforeTrackKeys
 				.map(convertToTrack)
 				.filter((track): track is AddTrack => track !== null)

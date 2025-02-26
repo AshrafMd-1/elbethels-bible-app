@@ -4,8 +4,14 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Image } from 'expo-image'
 import { albumImage1Uri } from '@/constants/images'
 import { colors, fontSize } from '@/constants/tokens'
+import { LastPlayedSongPayload } from '@/types/index'
+import { languageSpecificTitle } from '@/misc/util'
+import { useLanguage } from '@/context/LanguageContext'
+import { useRouter } from 'expo-router'
 
-const GradientCard = () => {
+const GradientCard = (props: { lastPlayedSong: LastPlayedSongPayload }) => {
+	const { isTelugu } = useLanguage()
+	const router = useRouter()
 	return (
 		<LinearGradient
 			colors={['#86efac', '#3b82f6', '#9333ea']}
@@ -14,7 +20,15 @@ const GradientCard = () => {
 			style={styles.gradientContainer}
 		>
 			<Pressable
-				onPress={() => console.log('Pressed the continue card')}
+				onPress={() => {
+					router.push({
+						pathname: '/individualScreens/ChapterFolder',
+						params: {
+							mainFolder: props.lastPlayedSong.folderName,
+							chapterFolder: props.lastPlayedSong.chapterName,
+						},
+					})
+				}}
 				style={styles.cardContent}
 			>
 				<Image
@@ -27,9 +41,13 @@ const GradientCard = () => {
 					}}
 				/>
 				<View style={{ backgroundColor: colors.backgroundMuted, width: '100%', padding: 10 }}>
-					<Text style={styles.titleText}>Numbers</Text>
+					<Text style={styles.titleText}>
+						{languageSpecificTitle(isTelugu, props.lastPlayedSong.chapterName ?? '')}
+					</Text>
 					<View style={styles.tagsContainer}>
-						<Text style={styles.tag}>OLD TESTAMENT</Text>
+						<Text style={styles.tag}>
+							{languageSpecificTitle(isTelugu, props.lastPlayedSong.folderName ?? '')}
+						</Text>
 					</View>
 				</View>
 			</Pressable>

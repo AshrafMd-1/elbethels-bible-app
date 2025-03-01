@@ -1,14 +1,23 @@
 import { FlatList, StyleSheet, View } from 'react-native'
-import ImageCard from '@/components/homeScreen/ImageCard'
 import albums from '@/assets/data/album.json'
+import ImageCard from './ImageCard'
+import { useMemo } from 'react'
 
 const HorizontalGroupOfAlbums = () => {
+	const allAlbumsArray = useMemo(
+		() =>
+			Object.entries(albums.albums).map(([id, album]) => ({
+				id,
+				...album,
+			})),
+		[],
+	)
 	return (
 		<View>
 			<FlatList
-				data={albums.albums}
+				data={allAlbumsArray}
 				renderItem={(item) => <ImageCard {...item.item} />}
-				keyExtractor={(item) => item.id.toString()}
+				keyExtractor={(item) => item.id}
 				contentContainerStyle={st.horizontalImagesFlatList}
 				initialNumToRender={3}
 				horizontal

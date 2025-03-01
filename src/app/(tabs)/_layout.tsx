@@ -9,7 +9,6 @@ const TabsNavigation = () => {
 		<>
 			<Header />
 			<Tabs
-				backBehavior="firstRoute"
 				screenOptions={{
 					tabBarActiveTintColor: colors.primary,
 					tabBarLabelStyle: {
@@ -66,6 +65,14 @@ const TabsNavigation = () => {
 					options={{
 						href: null,
 						title: 'ChapterFolder',
+						headerShown: false,
+					}}
+				/>
+				<Tabs.Screen
+					name="individualScreens/AlbumsFolder"
+					options={{
+						href: null,
+						title: 'AlbumsFolder',
 						headerShown: false,
 					}}
 				/>

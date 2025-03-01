@@ -12,8 +12,10 @@ import {
 	albumImage7Uri,
 	albumImage8Uri,
 } from '@/constants/images'
+import { useRouter } from 'expo-router'
+import { useLanguage } from '@/context/LanguageContext'
 
-const imageMap: Record<number, any> = {
+export const albumMap: Record<number, any> = {
 	1: albumImage1Uri,
 	2: albumImage2Uri,
 	3: albumImage3Uri,
@@ -25,7 +27,7 @@ const imageMap: Record<number, any> = {
 }
 
 interface ImageDataProps {
-	id: number
+	id: string
 	en: string
 	te: string
 	verses: {
@@ -41,15 +43,22 @@ interface ImageDataProps {
 }
 
 const ImageCard = (imgData: ImageDataProps) => {
+	const router = useRouter()
+	const { isTelugu } = useLanguage()
 	return (
 		<Pressable
 			onPress={() => {
-				console.log('Pressed Jumped to Album')
+				router.push({
+					pathname: '/individualScreens/AlbumsFolder',
+					params: {
+						albumId: imgData.id,
+					},
+				})
 			}}
 			style={st.container}
 		>
-			<Image source={imageMap[imgData.id]} style={st.albumImage} />
-			<Text style={st.titleText}>{imgData.en}</Text>
+			<Image source={albumMap[Number(imgData.id)]} style={st.albumImage} />
+			<Text style={st.titleText}>{isTelugu ? imgData.te : imgData.en}</Text>
 		</Pressable>
 	)
 }

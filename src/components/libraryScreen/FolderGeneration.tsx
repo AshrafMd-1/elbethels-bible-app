@@ -23,7 +23,7 @@ const FolderGeneration = ({ mainFolder, chapterFolder }: FolderGenerationProps) 
 	const { updateLastPlayed } = useLastPlayedStore()
 
 	const handleNewSong = async (currentSong: Track, beforeKeys: string[], afterKeys: string[]) => {
-		await updateLastPlayed({
+		updateLastPlayed({
 			currentSong,
 			beforeTrackKeys: beforeKeys,
 			afterTrackKeys: afterKeys,

@@ -8,6 +8,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 const LibraryScreen = () => {
 	const { isFloatingBarPresent } = useFloatingBar()
 	const bottom = useBottomTabBarHeight()
+
 	return (
 		<View
 			style={{

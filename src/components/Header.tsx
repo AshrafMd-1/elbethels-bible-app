@@ -2,7 +2,6 @@ import { memo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Image } from 'expo-image'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { usePathname } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 
 import { logoTransparentUri } from '@/constants/images'
@@ -10,13 +9,6 @@ import { colors, fontSize, screenPadding } from '@/constants/tokens'
 
 const Header = () => {
 	const { top } = useSafeAreaInsets()
-	const currentPath = usePathname()
-
-	const isMainTabs =
-		['/setting', '/library', '/Player'].some((path) => currentPath.includes(path)) ||
-		currentPath === '/'
-
-	if (!isMainTabs) return null
 
 	return (
 		<View>
@@ -66,7 +58,7 @@ const st = StyleSheet.create({
 		height: 40,
 	},
 	borderContainer: {
-		height: 10,
+		height: 6,
 		backgroundColor: colors.background,
 		width: '100%',
 		overflow: 'hidden',

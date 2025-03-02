@@ -1,7 +1,8 @@
 import { Pressable, StyleSheet, Text } from 'react-native'
-import { defaultStyles } from '@/styles'
 import { Image } from 'expo-image'
 import { colors, fontSize } from '@/constants/tokens'
+import { useRouter } from 'expo-router'
+import { useLanguage } from '@/context/LanguageContext'
 import {
 	albumImage1Uri,
 	albumImage2Uri,
@@ -12,8 +13,6 @@ import {
 	albumImage7Uri,
 	albumImage8Uri,
 } from '@/constants/images'
-import { useRouter } from 'expo-router'
-import { useLanguage } from '@/context/LanguageContext'
 
 export const albumMap: Record<number, any> = {
 	1: albumImage1Uri,
@@ -30,59 +29,44 @@ interface ImageDataProps {
 	id: string
 	en: string
 	te: string
-	verses: {
-		en: {
-			ref: string
-			text: string
-		}
-		te: {
-			ref: string
-			text: string
-		}
-	}[]
+	itemWidth: number
 }
 
-const ImageCard = (imgData: ImageDataProps) => {
+const ImageCard = ({ id, en, te, itemWidth }: ImageDataProps) => {
 	const router = useRouter()
 	const { isTelugu } = useLanguage()
+
 	return (
 		<Pressable
 			onPress={() => {
 				router.push({
 					pathname: '/individualScreens/AlbumsFolder',
-					params: {
-						albumId: imgData.id,
-					},
+					params: { albumId: id },
 				})
 			}}
-			style={st.container}
+			style={[st.container, { width: itemWidth - 10 }]}
 		>
-			<Image source={albumMap[Number(imgData.id)]} style={st.albumImage} />
-			<Text style={st.titleText}>{isTelugu ? imgData.te : imgData.en}</Text>
+			<Image source={albumMap[Number(id)]} style={[st.albumImage, { width: itemWidth - 10 }]} />
+			<Text style={st.titleText}>{isTelugu ? te : en}</Text>
 		</Pressable>
 	)
 }
 
 const st = StyleSheet.create({
 	container: {
-		width: 150,
+		alignItems: 'center',
 	},
 	albumImage: {
-		width: 150,
-		height: 150,
-		marginRight: 10,
+		height: 180,
 		borderRadius: 12,
+		resizeMode: 'cover',
 		borderWidth: 0.5,
 		borderColor: colors.textMuted,
 	},
 	titleText: {
-		...defaultStyles.text,
 		fontSize: fontSize.sm,
 		marginTop: 5,
 		color: colors.text,
-		paddingHorizontal: 5,
-		flexWrap: 'wrap',
-		width: 150,
 		textAlign: 'center',
 	},
 })

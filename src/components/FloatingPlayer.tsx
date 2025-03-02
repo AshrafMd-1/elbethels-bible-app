@@ -20,7 +20,7 @@ export const FloatingPlayer = ({ style }: ViewProps) => {
 	const displayedTrack = activeTrack ?? lastActiveTrack
 
 	const handlePress = () => {
-		router.navigate('/Player')
+		router.push('/Player')
 	}
 
 	if (!displayedTrack) return null

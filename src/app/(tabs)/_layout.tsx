@@ -1,13 +1,11 @@
 import { colors, fontSize } from '@/constants/tokens'
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 import { Tabs } from 'expo-router'
-import Header from '@/components/Header'
 import { FloatingPlayer } from '@/components/FloatingPlayer'
 
 const TabsNavigation = () => {
 	return (
 		<>
-			<Header />
 			<Tabs
 				screenOptions={{
 					tabBarActiveTintColor: colors.primary,

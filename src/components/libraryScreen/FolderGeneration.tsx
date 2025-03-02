@@ -68,8 +68,6 @@ const FolderGeneration = ({ mainFolder, chapterFolder }: FolderGenerationProps) 
 		}
 
 		if (isChangingQueue) {
-			console.log(`Queue is changing. Resetting and adding new tracks.`)
-
 			const beforeTrackKeys = listOfFolders.slice(0, trackIndex)
 			const afterTrackKeys = listOfFolders.slice(trackIndex + 1)
 
@@ -174,9 +172,10 @@ const FolderGeneration = ({ mainFolder, chapterFolder }: FolderGenerationProps) 
 						index={index}
 						count={
 							mainFolder
-								? Object.keys((library as Record<string, any>)[mainFolder].children[item].children)
-										.length
-								: Object.keys((library as Record<string, any>)[item].children).length
+								? Object.keys(
+										(library as Record<string, any>)[mainFolder]?.children?.[item]?.children ?? {},
+									).length
+								: Object.keys((library as Record<string, any>)[item]?.children ?? {}).length
 						}
 						params={{ mainFolder, chapterFolder }}
 					/>

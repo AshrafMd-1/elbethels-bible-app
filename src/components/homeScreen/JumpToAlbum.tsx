@@ -1,10 +1,12 @@
 import { Text, View } from 'react-native'
 import { colors, fontSize } from '@/constants/tokens'
 import HorizontalGroupOfAlbums from '@/components/homeScreen/HorizontalGroupOfAlbums'
+import { useFloatingBar } from '@/context/FloatingBarContext'
 
 const JumpToAlbum = () => {
+	const { isFloatingBarPresent } = useFloatingBar()
 	return (
-		<View style={{ marginBottom: 20 }}>
+		<View style={{ marginBottom: isFloatingBarPresent ? 40 : 20 }}>
 			<Text
 				style={{
 					fontSize: fontSize.lg,

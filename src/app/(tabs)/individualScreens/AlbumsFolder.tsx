@@ -29,7 +29,7 @@ const AlbumsFolder = () => {
 			style={[defaultStyles.container]}
 			keyExtractor={(item, index) => index.toString()}
 			showsVerticalScrollIndicator={false}
-			contentContainerStyle={{ paddingBottom: isFloatingBarPresent ? bottom + 60 : bottom + 20 }}
+			contentContainerStyle={{ paddingBottom: isFloatingBarPresent ? bottom + 70 : bottom + 20 }}
 			ListHeaderComponent={
 				<>
 					<View style={styles.headerWrapper}>
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
 	image: {
 		width: '100%',
 		height: 300,
-		resizeMode: 'cover',
 	},
 	headerContainer: {
 		padding: screenPadding.horizontal,

@@ -15,6 +15,7 @@ import { colors, screenPadding } from '@/constants/tokens'
 import { useLanguage } from '@/context/LanguageContext'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { useFloatingBar } from '@/context/FloatingBarContext'
+import Header from '@/components/Header'
 
 const About = () => {
 	const [title, setTitle] = useState('')
@@ -49,79 +50,83 @@ const About = () => {
 	}
 
 	return (
-		<View
-			style={{
-				...defaultStyles.container,
-				paddingHorizontal: screenPadding.horizontal,
-				paddingBottom: isFloatingBarPresent ? bottom + 10 : bottom,
-			}}
-		>
-			<ScrollView contentContainerStyle={st.scrollContainer}>
-				<Text
-					style={[
-						st.sectionTitle,
-						{
-							marginTop: 0,
-						},
-					]}
-				>
-					App Details
-				</Text>
-				<Text style={st.detailText}>Version: 1.0.0</Text>
-				<Text style={st.detailText}>Last Updated: Feb 08, 2025</Text>
+		<>
+			<Header />
 
-				<Text style={st.sectionTitle}>Preferences</Text>
-				<View style={st.row}>
-					<Text style={st.preferenceText}>{'తెలుగు'}</Text>
-					<Switch
-						trackColor={{ false: colors.textMuted, true: colors.textMuted }}
-						thumbColor={isTelugu ? colors.primary : '#f4f3f4'}
-						onValueChange={toggleLanguage}
-						style={{ marginLeft: 'auto' }}
-						value={isTelugu}
-					/>
-				</View>
-
-				<Text style={st.sectionTitle}>Report an Issue</Text>
-				<TextInput
-					style={st.input}
-					placeholder="Enter your title..."
-					placeholderTextColor="#888"
-					value={title}
-					onChangeText={setTitle}
-				/>
-				<TextInput
-					style={[st.input, { minHeight: 100 }]}
-					placeholder="Describe your issue..."
-					placeholderTextColor="#888"
-					multiline
-					value={issueText}
-					onChangeText={setIssueText}
-				/>
-				<TouchableOpacity style={st.button} onPress={handleReportIssue}>
-					<Text style={st.buttonText}>Submit Issue</Text>
-				</TouchableOpacity>
-
-				<Text
-					style={[
-						st.sectionTitle,
-						{
-							textAlign: 'center',
-						},
-					]}
-				>
-					Developed By{' '}
+			<View
+				style={{
+					...defaultStyles.container,
+					paddingHorizontal: screenPadding.horizontal,
+					paddingBottom: isFloatingBarPresent ? bottom + 10 : bottom,
+				}}
+			>
+				<ScrollView contentContainerStyle={st.scrollContainer}>
 					<Text
-						style={st.linkText}
-						onPress={() =>
-							Linking.openURL('https://www.linkedin.com/in/ashraf-mohammed-75932823a/')
-						}
+						style={[
+							st.sectionTitle,
+							{
+								marginTop: 0,
+							},
+						]}
 					>
-						Ashraf MD
+						App Details
 					</Text>
-				</Text>
-			</ScrollView>
-		</View>
+					<Text style={st.detailText}>Version: 1.0.0</Text>
+					<Text style={st.detailText}>Last Updated: Feb 08, 2025</Text>
+
+					<Text style={st.sectionTitle}>Preferences</Text>
+					<View style={st.row}>
+						<Text style={st.preferenceText}>{'తెలుగు'}</Text>
+						<Switch
+							trackColor={{ false: colors.textMuted, true: colors.textMuted }}
+							thumbColor={isTelugu ? colors.primary : '#f4f3f4'}
+							onValueChange={toggleLanguage}
+							style={{ marginLeft: 'auto' }}
+							value={isTelugu}
+						/>
+					</View>
+
+					<Text style={st.sectionTitle}>Report an Issue</Text>
+					<TextInput
+						style={st.input}
+						placeholder="Enter your title..."
+						placeholderTextColor="#888"
+						value={title}
+						onChangeText={setTitle}
+					/>
+					<TextInput
+						style={[st.input, { minHeight: 100 }]}
+						placeholder="Describe your issue..."
+						placeholderTextColor="#888"
+						multiline
+						value={issueText}
+						onChangeText={setIssueText}
+					/>
+					<TouchableOpacity style={st.button} onPress={handleReportIssue}>
+						<Text style={st.buttonText}>Submit Issue</Text>
+					</TouchableOpacity>
+
+					<Text
+						style={[
+							st.sectionTitle,
+							{
+								textAlign: 'center',
+							},
+						]}
+					>
+						Developed By{' '}
+						<Text
+							style={st.linkText}
+							onPress={() =>
+								Linking.openURL('https://www.linkedin.com/in/ashraf-mohammed-75932823a/')
+							}
+						>
+							Ashraf MD
+						</Text>
+					</Text>
+				</ScrollView>
+			</View>
+		</>
 	)
 }
 

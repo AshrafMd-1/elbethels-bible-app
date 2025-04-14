@@ -11,7 +11,7 @@ const MainFolder = () => {
 
 	useEffect(() => {
 		const onBackPress = () => {
-			router.replace('/library')
+			router.back()
 			return true
 		}
 

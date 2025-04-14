@@ -15,7 +15,7 @@ const LibraryScreen = () => {
 
 	useEffect(() => {
 		const handleBackPress = () => {
-			router.replace('/(tabs)/(home)')
+			router.push('/(tabs)/(home)')
 			return true
 		}
 

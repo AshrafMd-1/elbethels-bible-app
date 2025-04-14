@@ -1,15 +1,15 @@
 import {
-	Alert,
+	// Alert,
 	Linking,
 	ScrollView,
 	StyleSheet,
 	Switch,
 	Text,
-	TextInput,
-	TouchableOpacity,
+	// TextInput,
+	// TouchableOpacity,
 	View,
 } from 'react-native'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { defaultStyles } from '@/styles'
 import { colors, screenPadding } from '@/constants/tokens'
 import { useLanguage } from '@/context/LanguageContext'
@@ -18,36 +18,36 @@ import { useFloatingBar } from '@/context/FloatingBarContext'
 import Header from '@/components/Header'
 
 const About = () => {
-	const [title, setTitle] = useState('')
-	const [issueText, setIssueText] = useState('')
+	// const [title, setTitle] = useState('')
+	// const [issueText, setIssueText] = useState('')
 	const { isTelugu, toggleLanguage } = useLanguage()
 	const bottom = useBottomTabBarHeight()
 	const { isFloatingBarPresent } = useFloatingBar()
 
-	const handleReportIssue = async () => {
-		if (!title.trim() || !issueText.trim()) {
-			Alert.alert('Error', 'Please enter both title and issue description.')
-			return
-		}
-
-		try {
-			const response = await fetch('https://arorium.serv00.net/issue', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ title, issue: issueText }),
-			})
-
-			if (response.ok) {
-				Alert.alert('Success', 'Issue reported successfully!')
-				setTitle('')
-				setIssueText('')
-			} else {
-				Alert.alert('Error', 'Failed to submit issue. Please try again.')
-			}
-		} catch {
-			Alert.alert('Error', 'An error occurred while submitting the issue.')
-		}
-	}
+	// const handleReportIssue = async () => {
+	// 	if (!title.trim() || !issueText.trim()) {
+	// 		Alert.alert('Error', 'Please enter both title and issue description.')
+	// 		return
+	// 	}
+	//
+	// 	try {
+	// 		const response = await fetch('https://arorium.serv00.net/issue', {
+	// 			method: 'POST',
+	// 			headers: { 'Content-Type': 'application/json' },
+	// 			body: JSON.stringify({ title, issue: issueText }),
+	// 		})
+	//
+	// 		if (response.ok) {
+	// 			Alert.alert('Success', 'Issue reported successfully!')
+	// 			setTitle('')
+	// 			setIssueText('')
+	// 		} else {
+	// 			Alert.alert('Error', 'Failed to submit issue. Please try again.')
+	// 		}
+	// 	} catch {
+	// 		Alert.alert('Error', 'An error occurred while submitting the issue.')
+	// 	}
+	// }
 
 	return (
 		<>
@@ -86,31 +86,33 @@ const About = () => {
 						/>
 					</View>
 
-					<Text style={st.sectionTitle}>Report an Issue</Text>
-					<TextInput
-						style={st.input}
-						placeholder="Enter your title..."
-						placeholderTextColor="#888"
-						value={title}
-						onChangeText={setTitle}
-					/>
-					<TextInput
-						style={[st.input, { minHeight: 100 }]}
-						placeholder="Describe your issue..."
-						placeholderTextColor="#888"
-						multiline
-						value={issueText}
-						onChangeText={setIssueText}
-					/>
-					<TouchableOpacity style={st.button} onPress={handleReportIssue}>
-						<Text style={st.buttonText}>Submit Issue</Text>
-					</TouchableOpacity>
+					{/*<Text style={st.sectionTitle}>Report an Issue</Text>*/}
+					{/*<TextInput*/}
+					{/*	style={st.input}*/}
+					{/*	placeholder="Enter your title..."*/}
+					{/*	placeholderTextColor="#888"*/}
+					{/*	value={title}*/}
+					{/*	onChangeText={setTitle}*/}
+					{/*/>*/}
+					{/*<TextInput*/}
+					{/*	style={[st.input, { minHeight: 100 }]}*/}
+					{/*	placeholder="Describe your issue..."*/}
+					{/*	placeholderTextColor="#888"*/}
+					{/*	multiline*/}
+					{/*	value={issueText}*/}
+					{/*	onChangeText={setIssueText}*/}
+					{/*/>*/}
+					{/*<TouchableOpacity style={st.button} onPress={handleReportIssue}>*/}
+					{/*	<Text style={st.buttonText}>Submit Issue</Text>*/}
+					{/*</TouchableOpacity>*/}
 
 					<Text
 						style={[
 							st.sectionTitle,
 							{
 								textAlign: 'center',
+								fontSize: 18,
+								marginTop: '100%',
 							},
 						]}
 					>

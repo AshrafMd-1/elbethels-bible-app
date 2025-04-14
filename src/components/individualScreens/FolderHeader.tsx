@@ -19,7 +19,7 @@ const FolderHeader = (props: FolderHeaderProps) => {
 	return (
 		<View>
 			<View style={{ ...st.folderContainer, paddingTop: top + 10 }}>
-				<Pressable onPress={() => router.replace({ pathname: '/library' })}>
+				<Pressable onPress={() => router.push('/')}>
 					<AntDesign name="arrowleft" size={30} color="white" />
 				</Pressable>
 				<Text style={st.folderText}>{languageSpecificTitle(isTelugu, props.folderName)}</Text>

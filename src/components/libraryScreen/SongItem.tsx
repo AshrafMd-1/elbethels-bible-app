@@ -32,7 +32,7 @@ const SongItem = ({ songName, songData, folderName, chapterName, onPlay }: SongI
 		}
 		const track: Track = {
 			id: songData.id,
-			url: `https://arorium.serv00.net/fetch/${songData.id}`,
+			url: songData.url,
 			title: songName,
 			artist: chapterName,
 			album: folderName,
